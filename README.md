@@ -1,5 +1,7 @@
 # A V implementation of CRDTs
 
+![CI](https://github.com/vladimirmyshkovski/crdt/workflows/CI/badge.svg)
+
 Inspired by <https://github.com/neurodrone/crdt>
 
 The following state-based counters and sets have currently been implemented.
