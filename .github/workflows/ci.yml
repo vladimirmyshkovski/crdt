@@ -25,4 +25,4 @@ jobs:
       - name: Run tests
         run: ./v test ./crdt
       - name: JS compilation
-        run: ./v -o crdt.js .
+        run: ./v -o ./crdt/crdt.js ./crdt
