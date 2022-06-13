@@ -19,7 +19,7 @@ mut:
 // identity to it.
 pub fn new_gcounter() GCounter {
 	return GCounter{
-		ident: rand.uuid_v4().str()
+		ident: rand.ulid().str()
 		counter: map[string]int{}
 	}
 }
