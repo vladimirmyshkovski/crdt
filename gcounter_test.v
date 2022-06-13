@@ -1,4 +1,4 @@
-module main
+module crdt
 
 fn test_one() {
 	first := [5, 10, 15]
