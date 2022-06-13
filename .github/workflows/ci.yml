@@ -19,6 +19,8 @@ jobs:
           repository: vlang/v
       - uses: actions/checkout@v2
         with:
-          path: vex
+          path: crdt
       - name: Build local V
         run: make
+      - name: Run tests
+        run: ./v test ./crdt        
