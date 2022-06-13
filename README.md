@@ -75,3 +75,24 @@ gset.add(obj)
 // Should always print 'true' as `obj` exists in the g-set.
 println(gset.contains(obj))
 ```
+
+### LWW-Element-Set
+
+Last-write-wins element set (LWW-Element-Set) keeps track of element additions
+and removals but with respect to the timestamp that is attached to each
+element. Timestamps should be unique and have ordering properties.
+
+```v
+obj := "dummy-object"
+lwweset := crdt.new_lwweset()
+
+// Here, we remove the object first before we add it in. For a
+// 2P-set the object would be deemed absent from the set. But for
+// a LWW-set the object should be present because `.add()` follows
+// `.remove()`.
+lwweset.remove(obj)
+lwweset.add(obj)
+
+// This should print 'true' because of the above.
+println(lwweset.contains(obj))
+```
