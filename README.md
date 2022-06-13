@@ -19,7 +19,7 @@ gcounter.increment()
 gcounter.increment()
 
 // Or we can pass in an arbitrary delta to apply as an increment.
-gcounter.inc_val(2)
+gcounter.increment_value(2)
 
 // Should print '4' as the result.
 println(gcounter.count())
@@ -30,4 +30,30 @@ another_counter := crdt.new_gcounter()
 another_counter.merge(gcounter)
 gcounter.merge(another_counter)
 assert another_counter.count() == gcounter.count() 
+```
+
+### PN-Counter
+
+A positive-negative counter (PN-Counter) is a CRDT that can both increase or
+decrease and converge correctly in the light of commutative
+operations. Both `.increment()` and `.decrement()` operations are allowed and thus
+negative values are possible as a result.
+
+```v
+pncounter := crdt.new_pncounter()
+
+// We can increase the counter by 1.
+pncounter.increment()
+
+// Or more.
+pncounter.increment_value(100)
+
+// And similarly decrease its value by 1.
+pncounter.decrement()
+
+// Or more.
+pncounter.decrement_value(100)
+
+// End result should equal '0' here.
+println(pncounter.count())
 ```
