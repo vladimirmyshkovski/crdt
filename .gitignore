@@ -7,3 +7,4 @@ crdt
 *.dylib
 *.dll
 vls.log
+crdt.js
