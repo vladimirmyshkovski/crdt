@@ -20,7 +20,5 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: crdt
-      - name: Build local V
-          run: make
       - name: Run tests
-          run: v test .
+        run: v test .
