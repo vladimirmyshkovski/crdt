@@ -21,28 +21,28 @@ fn new_pncounter() PNCounter {
 // increment monotonically increments the current value of the
 // PN-Counter by one.
 fn (mut pn PNCounter) increment() {
-	pn.inc_val(1)
+	pn.increment_value(1)
 }
 
-// int_val increments the current value of the PN-Counter
+// increment_value increments the current value of the PN-Counter
 // by the delta incr that is provided. The value of delta
 // has to be >= 0. If the value of delta is < 0, then this
 // implementation panics.
-fn (mut pn PNCounter) inc_val(incr int) {
-	pn.p_counter.int_val(incr)
+fn (mut pn PNCounter) increment_value(incr int) {
+	pn.p_counter.increment_value(incr)
 }
 
 // decrement monotonically decrements the current value of the
 // PN-Counter by one.
 fn (mut pn PNCounter) decrement() {
-	pn.dec_val(1)
+	pn.decrement_value(1)
 }
 
-// dec_val adds a decrement to the current value of
+// decrement_value adds a decrement to the current value of
 // PN-Counter by the value of delta decr. Similar to
-// inc_val, the value of decr cannot be less than 0.
-fn (mut pn PNCounter) dec_val(decr int) {
-	pn.n_counter.int_val(decr)
+// increment_value, the value of decr cannot be less than 0.
+fn (mut pn PNCounter) decrement_value(decr int) {
+	pn.n_counter.increment_value(decr)
 }
 
 // count returns the current value of the counter. It

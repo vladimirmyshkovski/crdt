@@ -19,7 +19,7 @@ mut:
 // identity to it.
 pub fn new_gcounter() GCounter {
 	return GCounter{
-		ident: rand.uuid_v4().str() // uuid.NewV4().String(),
+		ident: rand.uuid_v4().str()
 		counter: map[string]int{}
 	}
 }
@@ -27,17 +27,17 @@ pub fn new_gcounter() GCounter {
 // increment increments the GCounter by the value of 1 everytime it
 // is called.
 fn (mut g GCounter) increment() {
-	g.int_val(1)
+	g.increment_value(1)
 }
 
 // inc_val allows passing in an arbitrary delta to increment the
 // current value of counter by. Only positive values are accepted.
 // If a negative value is provided the implementation will panic.
-fn (mut g GCounter) int_val(incr int) {
-	if incr < 0 {
+fn (mut g GCounter) increment_value(value int) {
+	if value < 0 {
 		panic('Cannot decrement a gcounter')
 	}
-	g.counter[g.ident] += incr
+	g.counter[g.ident] += value
 }
 
 // count returns the total count of this counter across all the
