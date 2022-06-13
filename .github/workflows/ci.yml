@@ -23,4 +23,6 @@ jobs:
       - name: Build local V
         run: make
       - name: Run tests
-        run: ./v test ./crdt        
+        run: ./v test ./crdt
+      - name: JS compilation
+        run: ./v -o crdt.js .
