@@ -1,5 +1,6 @@
 # A V implementation of CRDTs
-Inspired by https://github.com/neurodrone/crdt
+
+Inspired by <https://github.com/neurodrone/crdt>
 
 The following state-based counters and sets have currently been implemented.
 
@@ -56,4 +57,21 @@ pncounter.decrement_value(100)
 
 // End result should equal '0' here.
 println(pncounter.count())
+```
+
+## Sets
+
+### G-Set
+
+A grow-only (G-Set) set to which element/s can be added to. Removing element
+from the set is not possible.
+
+```v
+obj := "dummy-object"
+gset := crdt.new_gset<string>()
+
+gset.add(obj)
+
+// Should always print 'true' as `obj` exists in the g-set.
+println(gset.contains(obj))
 ```
