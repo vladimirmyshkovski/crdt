@@ -98,3 +98,23 @@ lwweset.add(obj)
 // This should print 'true' because of the above.
 println(lwweset.contains(obj))
 ```
+
+### 2P-Set
+
+Two-phase set (2P-Set) allows both additions and removals to the set.
+Internally it comprises of two G-Sets, one to keep track of additions
+and the other for removals.
+
+```v
+obj := "dummy-object"
+
+twophaseset := crdt.new_two_phase_set()
+
+twophaseset.add(obj)
+
+// Remove the object that we just added to the set, emptying it.
+twophaseset.remove(obj)
+
+// Should return 'false' as the obj doesn't exist within the set.
+println(twophaseset.contains(obj))
+```
