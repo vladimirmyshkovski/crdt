@@ -78,6 +78,26 @@ gset.add(obj)
 println(gset.contains(obj))
 ```
 
+### 2P-Set
+
+Two-phase set (2P-Set) allows both additions and removals to the set.
+Internally it comprises of two G-Sets, one to keep track of additions
+and the other for removals.
+
+```v
+obj := "dummy-object"
+
+twophaseset := crdt.new_two_phase_set()
+
+twophaseset.add(obj)
+
+// Remove the object that we just added to the set, emptying it.
+twophaseset.remove(obj)
+
+// Should return 'false' as the obj doesn't exist within the set.
+println(twophaseset.contains(obj))
+```
+
 ### LWW-Element-Set
 
 Last-write-wins element set (LWW-Element-Set) keeps track of element additions
@@ -99,22 +119,25 @@ lwweset.add(obj)
 println(lwweset.contains(obj))
 ```
 
-### 2P-Set
+### OR-Set
 
-Two-phase set (2P-Set) allows both additions and removals to the set.
-Internally it comprises of two G-Sets, one to keep track of additions
-and the other for removals.
+An OR-Set (Observed-Removed-Set) allows deletion and addition of
+elements similar to LWW-e-Set, but does not surface only the most recent one. Additions are uniquely tracked via tags and an element is considered member of the set if the deleted set consists of all the tags present within additions.
 
-```v
-obj := "dummy-object"
+```go
+// object 1 == object 2
+obj1 := "dummy-object"
+obj2 := "dummy-object"
 
-twophaseset := crdt.new_two_phase_set()
+orset := crdt.new_orset()
 
-twophaseset.add(obj)
+orset.add(obj1)
+orset.add(obj2)
 
-// Remove the object that we just added to the set, emptying it.
-twophaseset.remove(obj)
+// Removing any one of the above two objects should remove both
+// because they contain the same value.
+orset.remove(obj1)
 
-// Should return 'false' as the obj doesn't exist within the set.
-println(twophaseset.contains(obj))
+// Should return 'false'.
+println(orset.contains(obj2))
 ```
