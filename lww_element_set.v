@@ -24,7 +24,7 @@ fn (mut s LWWESet<T>) remove(value T) {
 	s.rm_map[value] = time.now()
 }
 
-fn (mut s LWWESet<T>) contains(value T) bool {
+fn (mut s LWWESet<T>) lookup(value T) bool {
 	if value in s.add_map.keys() {
 		if value in s.rm_map.keys() {
 			return s.rm_map[value].unix < s.add_map[value].unix
