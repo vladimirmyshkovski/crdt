@@ -42,7 +42,7 @@ fn (mut g GCounter) increment_value(value int) {
 
 // count returns the total count of this counter across all the
 // present replicas.
-fn (mut g GCounter) count() int {
+fn (mut g GCounter) value() int {
 	mut total := 0
 	for key in g.counter.keys() {
 		total += g.counter[key]

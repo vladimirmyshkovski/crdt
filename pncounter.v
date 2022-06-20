@@ -45,13 +45,13 @@ fn (mut pn PNCounter) decrement_value(decr int) {
 	pn.n_counter.increment_value(decr)
 }
 
-// count returns the current value of the counter. It
+// value returns the current value of the counter. It
 // subtracts the value of negative G-Counter from the
 // positive grow-only counter and returns the result.
 // Because this counter can grow in either direction,
 // negative integers as results are possible.
-fn (mut pn PNCounter) count() int {
-	return pn.p_counter.count() - pn.n_counter.count()
+fn (mut pn PNCounter) value() int {
+	return pn.p_counter.value() - pn.n_counter.value()
 }
 
 // Merge combines both the PN-Counters and saves the result
