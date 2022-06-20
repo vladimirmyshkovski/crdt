@@ -1,37 +1,27 @@
 module crdt
 
-fn test_one() {
-	first := [5, 10, 15]
-	second := [10, 5, 15]
+fn test_increment() {
+	mut pncounter := new_pncounter()
+	pncounter.increment()
+	assert pncounter.value() == 1
+}
 
-	mut first_counter := new_pncounter()
-	mut second_counter := new_pncounter()
+fn test_decrement() {
+	mut pncounter := new_pncounter()
+	pncounter.decrement()
+	assert pncounter.value() == -1
+}
 
-	for i in 0 .. 3 {
-		for z in 0 .. first[i] {
-			first_counter.increment()
-		}
-		for z in 0 .. second[i] {
-			second_counter.increment()
-		}
-		first_counter.merge(second_counter)
-		second_counter.merge(first_counter)
-	}
-	assert first_counter.p_counter.counter == second_counter.p_counter.counter
-	assert first_counter.n_counter.counter == second_counter.n_counter.counter
-	assert first_counter.count() == second_counter.count()
-
-	for i in 0 .. 3 {
-		for z in 0 .. first[i] {
-			first_counter.decrement()
-		}
-		for z in 0 .. second[i] {
-			second_counter.decrement()
-		}
-		first_counter.merge(second_counter)
-		second_counter.merge(first_counter)
-	}
-	assert first_counter.p_counter.counter == second_counter.p_counter.counter
-	assert first_counter.n_counter.counter == second_counter.n_counter.counter
-	assert first_counter.count() == second_counter.count()
+fn test_merge() {
+	mut first_pncounter := new_pncounter()
+	first_pncounter.increment()
+	assert first_pncounter.value() == 1
+	mut second_pncounter := new_pncounter()
+	second_pncounter.decrement()
+	assert second_pncounter.value() == -1
+	first_pncounter.merge(second_pncounter)
+	assert first_pncounter.value() == 0
+	assert second_pncounter.value() == -1
+	second_pncounter.merge(first_pncounter)
+	assert second_pncounter.value() == 0
 }

@@ -18,9 +18,9 @@ fn (mut g GSet<T>) add(elem T) {
 	g.main_set[elem] = T{}
 }
 
-// contains returns true if an element exists within the
+// lookup returns true if an element exists within the
 // set or false otherwise.
-fn (mut g GSet<T>) contains(elem T) bool {
+fn (mut g GSet<T>) lookup(elem T) bool {
 	return elem in g.main_set
 }
 

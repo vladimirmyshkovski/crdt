@@ -1,10 +1,5 @@
 module crdt
 
-// var (
-// TwoPhaseSet should implement Set.
-// _ Set = &TwoPhaseSet{}
-// )
-
 // TwoPhaseSet supports both addition and removal of
 // elements to set.
 struct TwoPhaseSet<T> {
@@ -31,9 +26,9 @@ fn (mut t TwoPhaseSet<T>) remove(elem T) {
 	t.rm_set.add(elem)
 }
 
-// contains returns true if the set contains the element.
+// lookup returns true if the set contains the element.
 // The set is said to contain the element if it is present
 // in the add-set and not in the remove-set.
-fn (mut t TwoPhaseSet<T>) contains(elem T) bool {
-	return t.add_set.contains(elem) && !t.rm_set.contains(elem)
+fn (mut t TwoPhaseSet<T>) lookup(elem T) bool {
+	return t.add_set.lookup(elem) && !t.rm_set.lookup(elem)
 }

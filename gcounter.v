@@ -6,8 +6,8 @@ import rand
 // a state-based grow-only counter that only supports
 // increments.
 pub struct GCounter {
-	// ident provides a unique identity to each replica.
-	ident string
+	// identity provides a unique identity to each replica.
+	identity string
 	// counter maps identity of each replica to their
 	// entry values i.e. the counter value they individually
 	// have.
@@ -19,7 +19,7 @@ mut:
 // identity to it.
 pub fn new_gcounter() GCounter {
 	return GCounter{
-		ident: rand.ulid().str()
+		identity: rand.ulid().str()
 		counter: map[string]int{}
 	}
 }
@@ -37,12 +37,12 @@ fn (mut g GCounter) increment_value(value int) {
 	if value < 0 {
 		panic('Cannot decrement a gcounter')
 	}
-	g.counter[g.ident] += value
+	g.counter[g.identity] += value
 }
 
 // count returns the total count of this counter across all the
 // present replicas.
-fn (mut g GCounter) count() int {
+fn (mut g GCounter) value() int {
 	mut total := 0
 	for key in g.counter.keys() {
 		total += g.counter[key]
@@ -55,14 +55,9 @@ fn (mut g GCounter) count() int {
 // multiple merges as when no state is changed across any replicas,
 // the result should be exactly the same everytime.
 fn (mut g GCounter) merge(c &GCounter) {
-	for key in c.counter.keys() {
-		val := c.counter[key]
-		v := g.counter[key] or {
-			g.counter[key] = val
-			continue
-		}
-		if v < val {
-			g.counter[key] = val
+	for key, value in c.counter {
+		if key !in g.counter || g.counter[key] < value {
+			g.counter[key] = value
 		}
 	}
 }

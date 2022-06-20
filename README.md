@@ -58,7 +58,7 @@ pncounter.decrement()
 pncounter.decrement_value(100)
 
 // End result should equal '0' here.
-println(pncounter.count())
+pncounter.count() == 0
 ```
 
 ## Sets
@@ -95,7 +95,7 @@ twophaseset.add(obj)
 twophaseset.remove(obj)
 
 // Should return 'false' as the obj doesn't exist within the set.
-println(twophaseset.contains(obj))
+twophaseset.contains(obj) == false
 ```
 
 ### LWW-Element-Set
@@ -116,7 +116,7 @@ lwweset.remove(obj)
 lwweset.add(obj)
 
 // This should print 'true' because of the above.
-println(lwweset.contains(obj))
+lwweset.contains(obj) == true
 ```
 
 ### OR-Set
@@ -124,7 +124,7 @@ println(lwweset.contains(obj))
 An OR-Set (Observed-Removed-Set) allows deletion and addition of
 elements similar to LWW-e-Set, but does not surface only the most recent one. Additions are uniquely tracked via tags and an element is considered member of the set if the deleted set consists of all the tags present within additions.
 
-```go
+```v
 // object 1 == object 2
 obj1 := "dummy-object"
 obj2 := "dummy-object"
@@ -139,5 +139,10 @@ orset.add(obj2)
 orset.remove(obj1)
 
 // Should return 'false'.
-println(orset.contains(obj2))
+orset.contains(obj2) == false
 ```
+
+## ToDo
+
+- [ ] Add `compare` and `merge` methods to G-Set (`gset.v`)
+- [ ] Add `compare` and `merge` methods to 2P-Set (`two_phase_set.v`)
