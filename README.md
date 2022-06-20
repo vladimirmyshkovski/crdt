@@ -141,3 +141,8 @@ orset.remove(obj1)
 // Should return 'false'.
 orset.contains(obj2) == false
 ```
+
+## ToDo
+
+- [ ] Add `compare` and `merge` methods to G-Set (`gset.v`)
+- [ ] Add `compare` and `merge` methods to 2P-Set (`two_phase_set.v`)
