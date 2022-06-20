@@ -37,3 +37,17 @@ fn (mut g GSet<T>) elements() []T {
 	}
 	return elements
 }
+
+// compare returns true if both of of sets are same, false otherwise.
+fn (mut g GSet<T>) compare(c GSet<T>) bool {
+	return g == c
+}
+
+// merge function to merge the GSet object's payload with the argument's payload.
+fn (mut g GSet<T>) merge(c GSet<T>) {
+	for key, _ in c.main_set {
+		if key !in g.main_set {
+			g.main_set[key] = c.main_set[key]
+		}
+	}
+}
