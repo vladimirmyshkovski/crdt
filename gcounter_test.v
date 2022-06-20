@@ -1,22 +1,16 @@
 module crdt
 
-fn test_one() {
-	first := [5, 10, 15]
-	second := [10, 5, 15]
+fn test_increment() {
+	mut counter := new_gcounter()
+	counter.increment()
+	assert counter.count() == 1
+}
 
+fn test_merge() {
 	mut first_counter := new_gcounter()
+	first_counter.increment()
+	assert first_counter.count() == 1
 	mut second_counter := new_gcounter()
-
-	for i in 0 .. 3 {
-		for z in 0 .. first[i] {
-			first_counter.increment()
-		}
-		for z in 0 .. second[i] {
-			second_counter.increment()
-		}
-		first_counter.merge(second_counter)
-		second_counter.merge(first_counter)
-	}
-	assert first_counter.counter == second_counter.counter
-	assert first_counter.count() == second_counter.count()
+	second_counter.merge(first_counter)
+	assert second_counter.count() == 1
 }
