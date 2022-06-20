@@ -8,4 +8,4 @@ crdt
 *.dll
 vls.log
 crdt.js
-.vscode
+.vscode/
