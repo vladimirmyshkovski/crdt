@@ -32,7 +32,7 @@ fn (mut o ORSet<T>) remove(value T) {
 	o.rm_map[value][rand.ulid().str()] = value
 }
 
-fn (mut o ORSet<T>) contains(value T) bool {
+fn (mut o ORSet<T>) lookup(value T) bool {
 	if value in o.add_map {
 		if value in o.rm_map {
 			for uid, _ in o.add_map {

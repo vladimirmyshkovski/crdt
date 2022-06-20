@@ -25,14 +25,14 @@ gcounter.increment()
 gcounter.increment_value(2)
 
 // Should print '4' as the result.
-println(gcounter.count())
+println(gcounter.value())
 
 another_counter := crdt.new_gcounter()
 
 // We can merge counter between each other
 another_counter.merge(gcounter)
 gcounter.merge(another_counter)
-assert another_counter.count() == gcounter.count() 
+assert another_counter.value() == gcounter.value() 
 ```
 
 ### PN-Counter
@@ -58,7 +58,7 @@ pncounter.decrement()
 pncounter.decrement_value(100)
 
 // End result should equal '0' here.
-pncounter.count() == 0
+pncounter.value() == 0
 ```
 
 ## Sets
@@ -75,7 +75,7 @@ gset := crdt.new_gset<string>()
 gset.add(obj)
 
 // Should always print 'true' as `obj` exists in the g-set.
-println(gset.contains(obj))
+println(gset.lookup(obj))
 ```
 
 ### 2P-Set
@@ -95,7 +95,7 @@ twophaseset.add(obj)
 twophaseset.remove(obj)
 
 // Should return 'false' as the obj doesn't exist within the set.
-twophaseset.contains(obj) == false
+twophaseset.lookup(obj) == false
 ```
 
 ### LWW-Element-Set
@@ -116,7 +116,7 @@ lwweset.remove(obj)
 lwweset.add(obj)
 
 // This should print 'true' because of the above.
-lwweset.contains(obj) == true
+lwweset.lookup(obj) == true
 ```
 
 ### OR-Set
@@ -139,7 +139,7 @@ orset.add(obj2)
 orset.remove(obj1)
 
 // Should return 'false'.
-orset.contains(obj2) == false
+orset.lookup(obj2) == false
 ```
 
 ## ToDo
